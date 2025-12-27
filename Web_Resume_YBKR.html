@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .profile-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            margin: 0 auto 15px;
+            object-fit: cover;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            font-size: 0.95em;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .tabs-container {
+            background: #f8f9fa;
+            border-bottom: 3px solid #e0e0e0;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            min-width: 100%;
+        }
+        
+        .tab {
+            padding: 20px 35px;
+            background: transparent;
+            border: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tab:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+        
+        .tab.active {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            background: white;
+        }
+        
+        .tab-icon {
+            font-size: 1.2em;
+        }
+        
+        .content {
+            padding: 50px;
+            min-height: 500px;
+        }
+        
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .page-title {
+            font-size: 2.5em;
+            color: #667eea;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .about-text {
+            font-size: 1.15em;
+            line-height: 1.9;
+            color: #555;
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .job, .education-item {
+            margin-bottom: 35px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .job:hover, .education-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+        }
+        
+        .job-header, .education-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .job-title, .degree {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .company, .school {
+            font-size: 1.1em;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .date {
+            color: #764ba2;
+            font-weight: 600;
+            font-size: 1em;
+        }
+        
+        .description {
+            color: #555;
+            line-height: 1.8;
+            margin-top: 15px;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .skill-item {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .skill-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+        }
+        
+        .skill-name {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .skill-level {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .cert-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+        
+        .cert-item {
+            background: #f8f9fa;
+            padding: 20px 25px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+            font-size: 1.1em;
+            color: #555;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .cert-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+        
+        .download-btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            margin-top: 30px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .tabs {
+                justify-content: flex-start;
+            }
+            
+            .tab {
+                padding: 15px 20px;
+                font-size: 0.95em;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .page-title {
+                font-size: 2em;
+            }
+            
+            .contact-info {
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://i.imgur.com/Uc59ja6.png" alt="Profile Photo" class="profile-photo">
+            <h1>Bharat Kumar Reddy Yallala</h1>
+            <p>Software Developer / Azure DevOps Engineer</p>
+            <div class="contact-info">
+                <div class="contact-item">📧 yallalabharat@gmail.com</div>
+                <div class="contact-item">📱 (682) 716-6858</div>
+                <div class="contact-item">📍 Irvine, CA</div>
+                <div class="contact-item">💼 <a href="https://www.linkedin.com/in/ybkreddy/" target="_blank">linkedin.com/in/ybkreddy</a></div>
+            </div>
+        </div>
+        
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab active" onclick="showPage('about')">
+                    <span class="tab-icon">👤</span>
+                    <span>About Me</span>
+                </button>
+                <button class="tab" onclick="showPage('experience')">
+                    <span class="tab-icon">💼</span>
+                    <span>Work Experience</span>
+                </button>
+                <button class="tab" onclick="showPage('education')">
+                    <span class="tab-icon">🎓</span>
+                    <span>Education</span>
+                </button>
+                <button class="tab" onclick="showPage('skills')">
+                    <span class="tab-icon">🛠️</span>
+                    <span>Skills</span>
+                </button>
+                <button class="tab" onclick="showPage('certifications')">
+                    <span class="tab-icon">🏆</span>
+                    <span>Certifications</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- About Me Page -->
+            <div class="page active" id="about-page">
+                <h2 class="page-title">About Me</h2>
+                <div class="about-text">
+                    Results-driven Software Developer and Azure DevOps Engineer with expertise in building scalable 
+                    applications and implementing robust CI/CD pipelines. Proficient in cloud infrastructure management, 
+                    automation, and containerization using Azure services. Passionate about streamlining development 
+                    workflows, optimizing deployment processes, and delivering high-quality software solutions. 
+                    Strong problem-solver with experience in Infrastructure as Code, monitoring, and cross-functional 
+                    collaboration to drive continuous improvement and operational excellence.
+                </div>
+                <a href="#" class="download-btn">Download Full Resume</a>
+            </div>
+            
+            <!-- Work Experience Page -->
+            <div class="page" id="experience-page">
+                <h2 class="page-title">Work Experience</h2>
+                
+                <div class="job">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">Azure Developer</div>
+                            <div class="company">Pacific Life Insurance Company</div>
+                        </div>
+                        <div class="date">May 2024 - Present</div>
+                    </div>
+                    <p class="description">
+                        Developing and implementing cloud-based solutions using Azure services. Working on CI/CD pipelines, 
+                        infrastructure automation, and containerization to optimize deployment processes and enhance system reliability.
+                    </p>
+                </div>
+                
+                <div class="job">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">Data Scientist</div>
+                            <div class="company">Juntran Technologies Pvt Ltd</div>
+                        </div>
+                        <div class="date">Jun 2019 - Aug 2021</div>
+                    </div>
+                    <p class="description">
+                        Streamlined and implemented various Machine Learning and Deep Learning models to support R&D projects. 
+                        Spearheaded automation projects that enhanced team productivity and efficiency by 30%. Developed Continuous 
+                        Learning pipelines for Machine Learning models, resulting in significant time and cost savings. Designed and 
+                        evolved internal webpages using Flask for the Shopfloor team and Strategy team.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Education Page -->
+            <div class="page" id="education-page">
+                <h2 class="page-title">Education</h2>
+                
+                <div class="education-item">
+                    <div class="education-header">
+                        <div>
+                            <div class="degree">Master of Science in Data Science</div>
+                            <div class="school">University of Texas at Arlington</div>
+                        </div>
+                        <div class="date">Jan 2022 - Dec 2023</div>
+                    </div>
+                    <p class="description">
+                        Advanced coursework in machine learning, deep learning, statistical analysis, and data engineering.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Skills Page -->
+            <div class="page" id="skills-page">
+                <h2 class="page-title">Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-name">Programming Languages</div>
+                        <div class="skill-level">Python (Jupyter Notebook, NumPy, Pandas, Scikit-learn), PowerShell, Shell Scripting, YAML. Experience with automation scripts and data analysis workflows.</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Azure Services</div>
+                        <div class="skill-level">Azure DevOps for project management and collaboration, Azure Pipelines for CI/CD automation, Azure Boards for agile planning and tracking. Proficient in managing both Windows and Linux virtual machines in Azure environments.</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">DevOps Tools</div>
+                        <div class="skill-level">Docker (created and optimized Python container images, reduced image sizes significantly), Kubernetes for orchestration, Jenkins for automation, Terraform for Infrastructure as Code, Ansible for configuration management.</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Version Control & Artifact Management</div>
+                        <div class="skill-level">Git for source code management, GitHub for collaboration and code reviews, Azure Repos for enterprise version control, JFrog Artifactory for managing build artifacts and dependencies.</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">CI/CD & Automation</div>
+                        <div class="skill-level">Designed and implemented automated CI/CD pipelines using Azure Pipelines and GitHub Actions. Experience with build automation, deployment strategies, and release management for continuous delivery.</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Infrastructure & Configuration</div>
+                        <div class="skill-level">Ansible Playbooks for configuration management and automation, YAML for pipeline and configuration definitions, experience with Windows and Linux server administration and troubleshooting.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Certifications Page -->
+            <div class="page" id="certifications-page">
+                <h2 class="page-title">Certifications</h2>
+                <ul class="cert-list">
+                    <li class="cert-item">🏅 Microsoft Certified: Azure Fundamentals - Issued July 2, 2024</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId + '-page').classList.add('active');
+            
+            // Add active class to clicked tab
+            event.currentTarget.classList.add('active');
+            
+            // Scroll to top of content
+            document.querySelector('.content').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
